@@ -1,0 +1,13 @@
+**/node_modules
+**/dist
+**/.DS_Store
+
+# Symfony runtime cache/logs (will be generated in container)
+backend/var/cache
+backend/var/log
+backend/var/share
+
+# Dev env overrides
+backend/.env.local
+frontend/.env.local
+
