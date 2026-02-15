@@ -1,43 +1,114 @@
-# React + Symfony SPA (метафорические карты)
+# ZOO Shipping Calculator
 
-## Что уже сделано
+## 1. Огляд проекту
 
-- **Главная страница**: список упражнений карточками (адаптив: 1/2/3 колонки).
-- **Меню-заготовка**: `Упражнения / Статьи / Контакты / Войти`, лого слева.
-- **Алые тона**: через CSS variables (легко менять).
-- **Данные из БД**: Symfony API `GET /api/exercises`.
-- **Сидер**: упражнения добавлены через fixtures (`backend/src/DataFixtures/AppFixtures.php`).
+Цей проєкт реалізує калькулятор вартості доставки для компанії ZOO.
+Він дозволяє розраховувати ціну доставки для різних перевізників за їхніми правилами.
 
-## Где менять тексты
+- Backend: Symfony (PHP 8+)
+- Frontend: Vue.js (мінімальний UI)
+- Архітектура: OOP, SOLID-friendly, використовується патерн стратегій для перевізників
+- Інфраструктура: Docker + docker-compose
+- Тестування: PHPUnit
 
-- **Тексты фронтенда (лого/меню/вступление)**: `frontend/src/content.ts`
-- **Описания упражнений (сидер)**: `backend/src/DataFixtures/AppFixtures.php`
+Підтримувані перевізники:
 
-## Как запустить через Docker
+- TransCompany: ≤10кг → 20 EUR, >10кг → 100 EUR
+- PackGroup: 1 EUR за 1 кг
 
-Сборка и запуск:
+Система розширювана — додавання нового перевізника вимагає лише створення нової стратегії.
 
-```bash
-docker build -t mac-spa .
-docker run --rm -p 8080:8080 mac-spa
+## 2. Функціонал
+
+Backend API:
+
+POST /api/shipping/calculate
+
+Запит (JSON):
+```
+{
+  "carrier": "transcompany",
+  "weightKg": 12.5
+}
 ```
 
-Открыть в браузере: `http://localhost:8080`
+Відповідь (успіх):
+```
+{
+  "carrier": "transcompany",
+  "weightKg": 12.5,
+  "currency": "EUR",
+  "price": 100
+}
+```
 
-При первом старте контейнер сам:
+Відповідь (помилка):
+```
+{
+  "error": "Unsupported carrier"
+}
+```
 
-- применит миграции,
-- загрузит fixtures в SQLite (`backend/var/app.db` внутри контейнера).
+Frontend:
 
-## Запуск в dev-режиме (без Docker)
+- Поле для ваги посилки
+- Випадаючий список для вибору перевізника
+- Кнопка "Розрахувати ціну"
+- Область для виводу результату або помилки
 
-Фронтенд:
+## 3. Архітектура
 
-```bash
-cd frontend
+- CarrierStrategyInterface: метод calculatePrice(float $weightKg): float
+- Конкретні класи стратегій: TransCompanyStrategy, PackGroupStrategy
+- ShippingCalculatorService: приймає slug перевізника і вагу, виконує обрану стратегію
+- CarrierFactory: динамічно повертає правильну стратегію
+- Контролер: endpoint /api/shipping/calculate
+- Валідація: Symfony Validator для перевірки payload
+
+Додавання нового перевізника відбувається додавнням класу який реалізує CarrierStrategyInterface
+
+## 4. Docker Setup
+
+Сервіси:
+
+- php: Symfony backend
+- nginx: reverse proxy
+- node: Vue frontend
+- postgres: база даних
+
+Запуск контейнерів:
+
+docker-compose up --build
+
+- Symfony API: http://localhost:8080
+- Vue frontend: http://localhost:3000 (dev)
+
+Білд фронтенду для продакшн:
+
+docker-compose run --rm node
+# Виконує npm install та npm run build, результат потрапляє в backend/public
+
+## 5. Розробка
+
+Backend:
+
+docker-compose exec php bash
+composer install
+
+Frontend:
+
+docker-compose exec node bash
 npm install
-npm run dev
-```
 
-API (Symfony) в этой среде может потребовать расширение PHP `ext-xml`.
+## 6. Тестування
 
+Запуск PHPUnit:
+
+docker-compose exec php bash
+php bin/phpunit
+
+Тести включають:
+
+- Unit-тести для стратегій перевізників
+- Unit/Integration тести для ShippingCalculatorService
+- Тести API endpoint
