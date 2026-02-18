@@ -4,12 +4,15 @@ namespace App\DTO;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CalculateShippingRequest
+final readonly class CalculateShippingRequest
 {
-    #[Assert\NotBlank]
-    public string $carrier;
+    public function __construct(
+        #[Assert\NotBlank]
+        #[Assert\Choice(['transcompany', 'packgroup'])]
+        public string $carrier,
 
-    #[Assert\NotBlank]
-    #[Assert\Positive]
-    public int $weightKg;
+        #[Assert\NotNull]
+        #[Assert\Positive]
+        public float $weightKg,
+    ) {}
 }

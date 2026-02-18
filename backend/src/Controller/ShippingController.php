@@ -10,29 +10,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 
 class ShippingController extends AbstractController
 {
     #[Route('/api/shipping/calculate', methods: ['POST'])]
     public function calculate(
         Request $request,
-        ValidatorInterface $validator,
+        #[MapRequestPayload] CalculateShippingRequest $dto,
         ShippingCalculator $calculator
     ): JsonResponse {
-        $data = json_decode($request->getContent(), true);
-
-        $dto = new CalculateShippingRequest();
-        $dto->carrier = $data['carrier'] ?? '';
-        $dto->weightKg = (int) ($data['weightKg'] ?? 0);
-
-        $errors = $validator->validate($dto);
-
-        if (count($errors) > 0) {
-            return $this->json([
-                'error' => (string) $errors
-            ], 400);
-        }
-
         try {
             $price = $calculator->calculate(
                 $dto->carrier,
