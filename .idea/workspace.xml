@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="65c00872-980d-485a-83bf-dc0a95ba2781" name="Default Changelist" comment="" />
+    <list default="true" id="65c00872-980d-485a-83bf-dc0a95ba2781" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/Controller/ShippingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/Controller/ShippingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/DTO/CalculateShippingRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/DTO/CalculateShippingRequest.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/backend/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -114,7 +121,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/pixelware/shop.novodek.com" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -134,7 +141,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770918004305</updated>
-      <workItem from="1770918005438" duration="17067000" />
+      <workItem from="1770918005438" duration="17767000" />
+      <workItem from="1771330738398" duration="3060000" />
     </task>
     <servers />
   </component>
@@ -150,6 +158,10 @@
       <screen x="82" y="40" width="1838" height="1040" />
     </state>
     <state x="731" y="316" width="530" height="568" key="FileChooserDialogImpl/82.40.1838.1040@82.40.1838.1040" timestamp="1771156206946" />
+    <state x="622" y="249" width="757" height="658" key="find.popup" timestamp="1771405850246">
+      <screen x="82" y="40" width="1838" height="1040" />
+    </state>
+    <state x="622" y="249" width="757" height="658" key="find.popup/82.40.1838.1040@82.40.1838.1040" timestamp="1771405850246" />
     <state x="705" y="550" width="591" height="198" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1770998688781">
       <screen x="82" y="40" width="1838" height="1040" />
     </state>
